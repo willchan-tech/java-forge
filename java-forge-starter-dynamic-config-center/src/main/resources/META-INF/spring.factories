@@ -1,0 +1,3 @@
+# ???????????????
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.willchantech.forge.log.masking.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig,io.github.willchantech.forge.log.masking.dynamic.config.center.domain.processor.DynamicConfigCenterProcessor
+

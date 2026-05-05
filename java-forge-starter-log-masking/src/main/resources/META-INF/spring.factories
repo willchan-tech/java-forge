@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.willchantech.forge.log.masking.config.LogMaskAutoConfiguration,io.github.willchantech.forge.log.masking.factory.LogMaskingChainFactory
