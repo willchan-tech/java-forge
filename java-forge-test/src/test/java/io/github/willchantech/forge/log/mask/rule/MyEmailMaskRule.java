@@ -19,6 +19,7 @@ public class MyEmailMaskRule extends AbstractEmailMaskRule {
         );
     }
 
+
 //    @Override
 //    public boolean supports(long flags) {
 //        return PhoneMaskRule.super.supports(flags);

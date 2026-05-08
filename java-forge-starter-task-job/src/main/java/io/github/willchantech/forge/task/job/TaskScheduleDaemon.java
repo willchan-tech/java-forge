@@ -1,7 +1,7 @@
 package io.github.willchantech.forge.task.job;
 
 import io.github.willchantech.forge.task.job.config.TaskJobAutoProperties;
-import io.github.willchantech.forge.task.job.service.ITaskJobService;
+import io.github.willchantech.forge.task.job.service.ITaskJobManager;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -15,9 +15,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class TaskScheduleDaemon {
 
     private final TaskJobAutoProperties properties;
-    private final ITaskJobService taskJobService;
+    private final ITaskJobManager taskJobService;
 
-    public TaskScheduleDaemon(TaskJobAutoProperties properties, ITaskJobService taskJobService) {
+    public TaskScheduleDaemon(TaskJobAutoProperties properties, ITaskJobManager taskJobService) {
         this.properties = properties;
         this.taskJobService = taskJobService;
     }

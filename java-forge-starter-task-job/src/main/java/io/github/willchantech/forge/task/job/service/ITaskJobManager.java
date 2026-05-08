@@ -7,7 +7,7 @@ import io.github.willchantech.forge.task.job.model.TaskScheduleVO;
  *
  * @author willchan-tech
  */
-public interface ITaskJobService {
+public interface ITaskJobManager {
 
     /**
      * 添加单个任务
@@ -41,10 +41,4 @@ public interface ITaskJobService {
      */
     int getActiveTaskCount();
     
-    /**
-     * 初始化任务调度配置
-     * 在服务启动时加载所有有效的任务调度配置
-     */
-    void initializeTasks();
-
 }

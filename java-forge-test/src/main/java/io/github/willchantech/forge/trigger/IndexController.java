@@ -1,5 +1,6 @@
 package io.github.willchantech.forge.trigger;
 
+import io.github.willchantech.forge.rate.limiter.types.annotations.GlobalLimiterRule;
 import io.github.willchantech.forge.rate.limiter.types.annotations.IPLimiterRule;
 import io.github.willchantech.forge.rate.limiter.types.annotations.KeyLimiterRule;
 import lombok.extern.slf4j.Slf4j;

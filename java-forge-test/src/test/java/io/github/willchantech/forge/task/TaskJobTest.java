@@ -1,7 +1,7 @@
 package io.github.willchantech.forge.task;
 
 import io.github.willchantech.forge.task.job.model.TaskScheduleVO;
-import io.github.willchantech.forge.task.job.service.ITaskJobService;
+import io.github.willchantech.forge.task.job.service.ITaskJobManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class TaskJobTest {
     private final Logger log = LoggerFactory.getLogger(TaskJobTest.class);
 
     @Resource
-    private ITaskJobService taskJobService;
+    private ITaskJobManager taskJobService;
 
     /**
      * 测试刷新任务
@@ -63,16 +63,11 @@ public class TaskJobTest {
             int beforeCount = taskJobService.getActiveTaskCount();
             log.info("清理前活跃任务数量: {}", beforeCount);
             
-            // 清理无效任务
-//            taskJobService.cleanInvalidTasks();
-            
             int afterCount = taskJobService.getActiveTaskCount();
             log.info("清理后活跃任务数量: {}", afterCount);
-            
         } catch (Exception e) {
             log.error("测试清理无效任务功能失败", e);
         }
-        
         log.info("清理无效任务功能测试完成");
     }
 

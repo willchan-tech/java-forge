@@ -41,10 +41,10 @@ java-forge:
       port: 16379
   # 任务调度配置
   task-job:
-      enabled: false
-      pool-size: 5
-      thread-name-prefix: "test-task-scheduler-"
-      wait-for-tasks-to-complete-on-shutdown: true
-      await-termination-seconds: 30
-      refresh-interval: 30000
-      clean-invalid-tasks-cron: "0 0/5 0/6 * * ?"
+      enabled: false # 是否开启定时刷新任务
+      pool-size: 5 # 任务线程池大小
+      thread-name-prefix: "test-task-scheduler-" # 任务线程名称前缀
+      wait-for-tasks-to-complete-on-shutdown: true # 是否等待任务执行完成再关闭容器
+      await-termination-seconds: 30 # 容器关闭时，等待任务执行完成，超时（n 秒）则强制中断
+      refresh-interval: 30000 # 刷新任务间隔（ms）
+#      clean-invalid-tasks-cron: "0 0/5 0/6 * * ?"

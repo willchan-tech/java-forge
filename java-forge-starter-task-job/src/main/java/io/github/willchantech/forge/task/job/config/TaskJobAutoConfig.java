@@ -2,8 +2,8 @@ package io.github.willchantech.forge.task.job.config;
 
 import io.github.willchantech.forge.task.job.TaskScheduleDaemon;
 import io.github.willchantech.forge.task.job.provider.ITaskDataProvider;
-import io.github.willchantech.forge.task.job.service.ITaskJobService;
-import io.github.willchantech.forge.task.job.service.TaskJobService;
+import io.github.willchantech.forge.task.job.service.ITaskJobManager;
+import io.github.willchantech.forge.task.job.service.TaskJobManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -58,19 +58,16 @@ public class TaskJobAutoConfig {
      * @return 任务调度服务实例
      */
     @Bean
-    public ITaskJobService taskJobService(TaskScheduler javaForgeTaskScheduler, List<ITaskDataProvider> taskDataProviders) {
+    public ITaskJobManager taskJobService(TaskScheduler javaForgeTaskScheduler, List<ITaskDataProvider> taskDataProviders) {
         // 实例化任务并初始化调度
-        TaskJobService taskJobService = new TaskJobService(javaForgeTaskScheduler, taskDataProviders);
-        taskJobService.initializeTasks();
-
-        return taskJobService;
+        return new TaskJobManager(javaForgeTaskScheduler, taskDataProviders);
     }
 
     /**
      * 自动检测任务
      */
     @Bean
-    public TaskScheduleDaemon taskJob(TaskJobAutoProperties properties, ITaskJobService taskJobService) {
+    public TaskScheduleDaemon taskJob(TaskJobAutoProperties properties, ITaskJobManager taskJobService) {
         log.info("java-forge task-job 任务调度作业初始化完成。刷新间隔: {}ms, 清理cron: {}", properties.getRefreshInterval(), properties.getCleanInvalidTasksCron());
         return new TaskScheduleDaemon(properties, taskJobService);
     }

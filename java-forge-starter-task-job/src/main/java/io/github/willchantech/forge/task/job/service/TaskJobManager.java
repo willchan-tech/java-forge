@@ -1,15 +1,14 @@
 package io.github.willchantech.forge.task.job.service;
 
-import com.google.common.base.Strings;
 import io.github.willchantech.forge.task.job.model.TaskHolder;
 import io.github.willchantech.forge.task.job.model.TaskScheduleVO;
 import io.github.willchantech.forge.task.job.provider.ITaskDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,9 +20,9 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author willchan-tech
  */
-public class TaskJobService implements ITaskJobService, DisposableBean {
+public class TaskJobManager implements ITaskJobManager, InitializingBean, DisposableBean {
 
-    private final Logger log = LoggerFactory.getLogger(TaskJobService.class);
+    private final Logger log = LoggerFactory.getLogger(TaskJobManager.class);
 
     private final TaskScheduler taskScheduler;
     private final List<ITaskDataProvider> taskDataProviders;
@@ -38,14 +37,17 @@ public class TaskJobService implements ITaskJobService, DisposableBean {
     /**
      * 新的构造函数，不依赖ITaskExecutor
      */
-    public TaskJobService(TaskScheduler taskScheduler,
-                         List<ITaskDataProvider> taskDataProviders) {
+    public TaskJobManager(TaskScheduler taskScheduler,
+                          List<ITaskDataProvider> taskDataProviders) {
         this.taskScheduler = taskScheduler;
         this.taskDataProviders = taskDataProviders;
     }
-    
-    @Override
-    public void initializeTasks() {
+
+    /**
+     * 初始化任务调度配置
+     * 在服务启动时加载所有有效的任务调度配置
+     */
+    private void initializeTasks() {
         log.info("java-forge task-job 开始初始化任务调度配置");
         try {
             // 聚合所有数据提供者的任务调度配置
@@ -259,4 +261,12 @@ public class TaskJobService implements ITaskJobService, DisposableBean {
         stopAllTasks();
     }
 
+    /**
+     * Bean 初始化完成后自动执行
+     * @throws Exception
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        initializeTasks();
+    }
 }

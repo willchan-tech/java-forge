@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @Desc :  logback 日志脱敏适配器:
  *      使用者注册到 logback.xml 中：
  *              <conversionRule conversionWord="mask" converterClass="io.github.willchantech.forge.log.masking.adapter.logback.LogbackMaskingConverter"/>
- *              然后在 pattern 中将日志变量替换成 %mask%n
+ *              然后在 pattern 中将日志变量替换成 %mask
  * @Author : Will Chan
  * @Date : 2026/4/27 17:03
  */
